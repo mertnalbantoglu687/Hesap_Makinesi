@@ -17,12 +17,12 @@ def Sayı_Al(metin):
 
     return float(sayi)
 
-def Binlik_Ayraç_Ekle(sayi_str, ondalik_ayrac, binlik_ayrac):
-    if ondalik_ayrac in sayi_str:
-        tam, ondalik = sayi_str.split(ondalik_ayrac)
+def Binlik_Ayraç_Ekle(sayi, ondalik_ayrac, binlik_ayrac):
+    if ondalik_ayrac in sayi:
+        tam, ondalik = sayi.split(ondalik_ayrac)
 
     else:
-        tam, ondalik = sayi_str, ""
+        tam, ondalik = sayi, ""
 
     tam = tam[::-1]
 
