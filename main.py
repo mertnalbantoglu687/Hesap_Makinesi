@@ -5,17 +5,23 @@ son_ondalik_ayrac = None
 def Sayı_Al(metin):
     global son_ondalik_ayrac
 
-    sayi = input(metin)
+    while True:
+        sayi = input(metin)
 
-    if "," in sayi:
-        son_ondalik_ayrac = ","
+        try:
+            if "," in sayi:
+                son_ondalik_ayrac = ","
 
-    elif "." in sayi:
-        son_ondalik_ayrac = "."
+            elif "." in sayi:
+                son_ondalik_ayrac = "."
 
-    sayi = sayi.replace(",", ".")
+            sayi = sayi.replace(",", ".")
 
-    return float(sayi)
+            return float(sayi)
+
+        except ValueError:
+            print("Böyle bir sayı yok.")
+            print(" ")
 
 def Binlik_Ayraç_Ekle(sayi, ondalik_ayrac, binlik_ayrac):
     if ondalik_ayrac in sayi:
@@ -138,7 +144,10 @@ while True:
 
         print(" ")
 
-        if abs(sayi1) > 1000:
+        if abs(sayi1) > 1000 and abs(sayi2) > 1000:
+            print("Lütfen 1000'den küçük bir taban ve üs giriniz.")
+
+        elif abs(sayi1) > 1000:
             print("Lütfen 1000'den küçük bir taban giriniz.")
 
         elif abs(sayi2) > 1000:
