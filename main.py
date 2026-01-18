@@ -39,10 +39,16 @@ def Binlik_Ayraç_Ekle(sayi, ondalik_ayrac, binlik_ayrac):
 def Sonucu_Yazdır(sonuc):
     global son_ondalik_ayrac
 
-    if isinstance(sonuc, float) and sonuc.is_integer():
-        sonuc = int(sonuc)
+    if isinstance(sonuc, float):
+        if sonuc.is_integer():
+            sonuc = int(sonuc)
+            sonuc = str(sonuc)
 
-    sonuc = str(sonuc)
+        else:
+            sonuc = f"{sonuc:.10f}".rstrip("0").rstrip(".")
+
+    else:
+        sonuc = str(sonuc)
 
     if son_ondalik_ayrac == ",":
         ondalik = ","
@@ -117,7 +123,7 @@ while True:
         sayi2 = Sayı_Al("İkinci sayı: ")
         print(" ")
         if sayi2 == 0:
-            print("Bir sayı sıfıra bölünemez.")
+            print("Bir sayı 0'a bölünemez.")
 
         else:
             print(sayi1, "÷", sayi2, end=" ")
@@ -125,17 +131,30 @@ while True:
 
     elif secim == "5":
         sayi1 = Sayı_Al("Taban: ")
+
         print(" ")
-        sayi2 = Sayı_Al("Üs: ")
+
+        sayi2 = int(Sayı_Al("Üs: "))
+
         print(" ")
-        print(sayi1, "^", sayi2, end=" ")
-        Sonucu_Yazdır(sayi1 ** sayi2)
+
+        if abs(sayi2) > 1000:
+            print("Lütfen 1000'den küçük bir üs giriniz.")
+
+        else:
+            print(sayi1, "^", sayi2, end=" ")
+
+            try:
+                Sonucu_Yazdır(int(sayi1) ** sayi2)
+
+            except OverflowError:
+                print("Sonuç hesaplanılamadı.")
 
     elif secim == "6":
         sayi = Sayı_Al("Bir sayı giriniz: ")
         print(" ")
         if sayi < 0:
-            print("Negatif sayının karekökü alınamaz.")
+            print("Negatif sayıların karekökü alınamaz.")
 
         else:
             print("√(" + str(sayi) + ")", end=" ")
