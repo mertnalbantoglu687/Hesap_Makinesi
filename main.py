@@ -20,6 +20,7 @@ def Sayı_Al(metin):
             return float(sayi)
 
         except ValueError:
+            print(" ")
             print("Böyle bir sayı yok.")
             print(" ")
 
