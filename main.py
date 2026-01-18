@@ -1,38 +1,79 @@
 import random
 
-virgul_sayisi = 0
-
-nokta_sayisi = 0
+son_ondalik_ayrac = None
 
 def Sayı_Al(metin):
-    global virgul_sayisi, nokta_sayisi
+    global son_ondalik_ayrac
+
     sayi = input(metin)
-    virgul_sayisi += sayi.count(",")
-    nokta_sayisi += sayi.count(".")
+
+    if "," in sayi:
+        son_ondalik_ayrac = ","
+
+    elif "." in sayi:
+        son_ondalik_ayrac = "."
+
     sayi = sayi.replace(",", ".")
+
     return float(sayi)
 
+def Binlik_Ayraç_Ekle(sayi_str, ondalik_ayrac, binlik_ayrac):
+    if ondalik_ayrac in sayi_str:
+        tam, ondalik = sayi_str.split(ondalik_ayrac)
+
+    else:
+        tam, ondalik = sayi_str, ""
+
+    tam = tam[::-1]
+
+    parcalar = [tam[i:i+3] for i in range(0, len(tam), 3)]
+
+    tam = binlik_ayrac.join(parcalar)[::-1]
+
+    if ondalik:
+        return tam + ondalik_ayrac + ondalik
+
+    else:
+        return tam
+
 def Sonucu_Yazdır(sonuc):
-    global virgul_sayisi, nokta_sayisi
+    global son_ondalik_ayrac
+
+    if isinstance(sonuc, float) and sonuc.is_integer():
+        sonuc = int(sonuc)
 
     sonuc = str(sonuc)
 
-    if virgul_sayisi > nokta_sayisi:
-        sonuc = sonuc.replace(".", ",")
+    if son_ondalik_ayrac == ",":
+        ondalik = ","
+        binlik = "."
 
-    elif virgul_sayisi < nokta_sayisi:
-        sonuc = sonuc.replace(",", ".")
+    elif son_ondalik_ayrac == ".":
+        ondalik = "."
+        binlik = ","
 
     else:
-        if random.choice([True, False]):
-            sonuc = sonuc.replace(".", ",")
+        ondalik = None
+        binlik = "."
 
-        else:
-            sonuc = sonuc.replace(",", ".")
+    if ondalik:
+        sonuc = sonuc.replace(".", ondalik)
+
+    sonuc = Binlik_Ayraç_Ekle(
+        sonuc,
+        ondalik if ondalik else ".",
+        binlik
+    )
 
     print("=", sonuc)
 
+print(" ")
+
 while True:
+    virgul_sayisi = 0
+
+    nokta_sayisi = 0
+
     secim = input(
         "Toplama: 1\n"
         "Çıkarma: 2\n"
