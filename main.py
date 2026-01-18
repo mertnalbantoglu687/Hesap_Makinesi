@@ -138,7 +138,10 @@ while True:
 
         print(" ")
 
-        if abs(sayi2) > 1000:
+        if abs(sayi1) > 1000:
+            print("Lütfen 1000'den küçük bir taban giriniz.")
+
+        elif abs(sayi2) > 1000:
             print("Lütfen 1000'den küçük bir üs giriniz.")
 
         else:
